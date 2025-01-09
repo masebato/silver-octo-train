@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  title: Franquicias API
+  description: API para gestionar franquicias, sucursales y productos.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor de desarrollo
+
+paths:
+  /api/franchises:
+    post:
+      summary: Crear una nueva franquicia
+      tags:
+        - Franchises
+      requestBody:
+        description: Datos para crear una nueva franquicia
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Franquicia B
+      responses:
+        201:
+          description: Franquicia creada exitosamente
+        400:
+          description: Error en los datos enviados
+
+  /api/branches/add-to-franchise:
+    post:
+      summary: Agregar una nueva sucursal a una franquicia
+      tags:
+        - Branches
+      requestBody:
+        description: Datos de la sucursal
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                franchiseId:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: Sucursal Central
+      responses:
+        201:
+          description: Sucursal creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Sucursal creada exitosamente
+                  branch:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      franchiseId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        400:
+          description: Error en los datos enviados
+
+  /api/products/add-to-branch:
+    post:
+      summary: Agregar un producto a una sucursal
+      tags:
+        - Products
+      requestBody:
+        description: Datos del producto
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                branchId:
+                  type: integer
+                  example: 2
+                name:
+                  type: string
+                  example: Producto A
+                stock:
+                  type: integer
+                  example: 50
+      responses:
+        201:
+          description: Producto creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Producto creado exitosamente
+                  product:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      stock:
+                        type: integer
+                      branchId:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+
+  /api/products/{productId}:
+    delete:
+      summary: Eliminar un producto
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Producto eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: El producto con ID 1 ha sido eliminado
+
+  /api/products/{productId}/stock:
+    put:
+      summary: Actualizar el stock de un producto
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: integer
+      requestBody:
+        description: Nuevo stock del producto
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stock:
+                  type: integer
+                  example: 100
+      responses:
+        200:
+          description: Stock actualizado exitosamente
+
+  /api/branches/{branchId}:
+    put:
+      summary: Actualizar el nombre de una sucursal
+      tags:
+        - Branches
+      parameters:
+        - name: branchId
+          in: path
+          required: true
+          description: ID de la sucursal
+          schema:
+            type: integer
+      requestBody:
+        description: Nuevo nombre de la sucursal
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Sucursal Actualizada
+      responses:
+        200:
+          description: Nombre de la sucursal actualizado exitosamente
+
+  /api/products/top-stocked/{franchiseId}:
+    get:
+      summary: Obtener el producto con más stock por sucursal
+      tags:
+        - Products
+      parameters:
+        - name: franchiseId
+          in: path
+          required: true
+          description: ID de la franquicia
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de productos con más stock
