@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const routes = require("./routes");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
-const swaggerDocument = YAML.load("./openapi.yaml");
+const swaggerDocument = YAML.load("./src/openapi.yaml");
 
 const app = express();
 
