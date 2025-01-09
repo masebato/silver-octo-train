@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const franchiseRoutes = require("./FranchiseRoutes");
-const branchRoutes = require("./branchRoutes");
+const branchRoutes = require("./BranchRoutes");
 const productRoutes = require("./ProductRoutes");
 
 router.use("/franchises", franchiseRoutes);
