@@ -68,12 +68,12 @@ API para gestionar franquicias, sucursales y productos. Esta API permite crear, 
 
 2. La API estará disponible en:
    ```
-   http://localhost:3000
+   https://franquicias.up.railway.app
    ```
 
 3. La documentación interactiva estará disponible en:
    ```
-   http://localhost:3000/api-docs
+   https://franquicias.up.railway.app/api-docs/
    ```
 
 ---
