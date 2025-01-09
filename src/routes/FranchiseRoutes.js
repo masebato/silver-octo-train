@@ -3,7 +3,7 @@ const {
   createFranchise,
   getAllFranchises,
   updateFranchiseName,
-} = require("../controllers/franchiseController");
+} = require("../controllers/FranchiseController");
 const router = express.Router();
 
 router.post("/", createFranchise);
