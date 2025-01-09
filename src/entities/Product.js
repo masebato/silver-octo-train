@@ -37,6 +37,10 @@ class Product {
     await product.save();
     return product;
   }
+
+  async getAllProducts() {
+    return await this.model.findAll();
+  }
 }
 
 module.exports = Product;

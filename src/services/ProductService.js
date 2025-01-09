@@ -97,6 +97,10 @@ class ProductService {
 
     return await this.product.updateName(productId, newName);
   }
+
+  async getAllProducts() {
+    return await this.product.getAllProducts();
+  }
 }
 
 module.exports = new ProductService();

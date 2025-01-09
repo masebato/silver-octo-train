@@ -11,6 +11,27 @@ servers:
 
 paths:
   /api/franchises:
+    get:
+      summary: Obtener todas las franquicias
+      tags:
+        - Franchises
+      responses:
+        200:
+          description: Lista de franquicias obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+        400:
+          description: Error al obtener las franquicias
+
     post:
       summary: Crear una nueva franquicia
       tags:
@@ -31,6 +52,56 @@ paths:
           description: Franquicia creada exitosamente
         400:
           description: Error en los datos enviados
+
+  /api/branches:
+    get:
+      summary: Obtener todas las sucursales
+      tags:
+        - Branches
+      responses:
+        200:
+          description: Lista de sucursales obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    franchiseId:
+                      type: integer
+        400:
+          description: Error al obtener las sucursales
+
+  /api/products:
+    get:
+      summary: Obtener todos los productos
+      tags:
+        - Products
+      responses:
+        200:
+          description: Lista de productos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    stock:
+                      type: integer
+                    branchId:
+                      type: integer
+        400:
+          description: Error al obtener los productos
 
   /api/branches/add-to-franchise:
     post:
@@ -98,10 +169,10 @@ paths:
                   example: 2
                 name:
                   type: string
-                  example: Producto A
+                  example: Producto F
                 stock:
                   type: integer
-                  example: 50
+                  example: 1
       responses:
         201:
           description: Producto creado exitosamente
@@ -131,13 +202,13 @@ paths:
                         type: string
                         format: date-time
 
-  /api/products/{productId}:
+  /api/products/{id}:
     delete:
       summary: Eliminar un producto
       tags:
         - Products
       parameters:
-        - name: productId
+        - name: id
           in: path
           required: true
           description: ID del producto
@@ -154,6 +225,34 @@ paths:
                   message:
                     type: string
                     example: El producto con ID 1 ha sido eliminado
+
+    put:
+      summary: Actualizar el nombre de un producto
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: integer
+      requestBody:
+        description: Nuevo nombre del producto
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Producto Actualizado
+      responses:
+        200:
+          description: Producto actualizado exitosamente
+        400:
+          description: Error al actualizar el producto
 
   /api/products/{productId}/stock:
     put:
@@ -182,13 +281,29 @@ paths:
         200:
           description: Stock actualizado exitosamente
 
-  /api/branches/{branchId}:
+  /api/products/top-stocked/{franchiseId}:
+    get:
+      summary: Obtener el producto con más stock por sucursal
+      tags:
+        - Products
+      parameters:
+        - name: franchiseId
+          in: path
+          required: true
+          description: ID de la franquicia
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de productos con más stock
+
+  /api/branches/{idBranches}:
     put:
       summary: Actualizar el nombre de una sucursal
       tags:
         - Branches
       parameters:
-        - name: branchId
+        - name: idBranches
           in: path
           required: true
           description: ID de la sucursal
@@ -207,20 +322,35 @@ paths:
                   example: Sucursal Actualizada
       responses:
         200:
-          description: Nombre de la sucursal actualizado exitosamente
+          description: Sucursal actualizada exitosamente
+        400:
+          description: Error al actualizar la sucursal
 
-  /api/products/top-stocked/{franchiseId}:
-    get:
-      summary: Obtener el producto con más stock por sucursal
+  /api/franchises/{id}:
+    put:
+      summary: Actualizar el nombre de una franquicia
       tags:
-        - Products
+        - Franchises
       parameters:
-        - name: franchiseId
+        - name: id
           in: path
           required: true
           description: ID de la franquicia
           schema:
             type: integer
+      requestBody:
+        description: Nuevo nombre de la franquicia
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Nueva franquicia Actualizada
       responses:
         200:
-          description: Lista de productos con más stock
+          description: Franquicia actualizada exitosamente
+        400:
+          description: Error al actualizar la franquicia

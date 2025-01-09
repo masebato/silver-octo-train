@@ -113,11 +113,13 @@ franquicias-api/
 ├── src/
 │   ├── controllers/     # Controladores para manejar la lógica de las rutas
 │   ├── models/          # Modelos definidos con Sequelize
+|   |── db/              # Configuracion de base de datos
+|   |   ├── migrations/  # Migraciones para la base de datos
+|   |   └── seeders/     # Semillas para iniciar datos
 │   ├── routes/          # Definición de rutas
 │   ├── services/        # Lógica de negocio
 │   ├── swagger.js       # Configuración de Swagger
 │   └── index.js         # Punto de entrada principal
-├── migrations/          # Migraciones para la base de datos
 ├── openapi.yaml         # Documentación de la API en formato OpenAPI
 ├── package.json         # Dependencias y scripts
 ├── README.md            # Este archivo

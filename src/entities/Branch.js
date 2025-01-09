@@ -29,6 +29,10 @@ class Branch {
     await branch.save();
     return branch;
   }
+
+  async getAllBranches() {
+    return await this.model.findAll();
+  }
 }
 
 module.exports = Branch;

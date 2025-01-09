@@ -40,6 +40,10 @@ class Franchise {
 
     return franchise;
   }
+
+  async getAllFranchises() {
+    return await this.model.findAll();
+  }
 }
 
 module.exports = Franchise;

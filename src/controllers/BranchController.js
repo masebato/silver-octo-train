@@ -36,4 +36,16 @@ const updateBranchName = async (req, res) => {
   }
 };
 
-module.exports = { addBranchToFranchise, updateBranchName };
+const getAllBranches = async (req, res) => {
+  try {
+    const branches = await branchService.getAllBranches();
+    res.status(200).json(branches);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al obtener las sucursales",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { addBranchToFranchise, updateBranchName, getAllBranches };

@@ -51,6 +51,10 @@ class BranchService {
 
     return await this.branch.updateName(branchId, newName);
   }
+
+  async getAllBranches() {
+    return await this.branch.getAllBranches();
+  }
 }
 
 module.exports = new BranchService();

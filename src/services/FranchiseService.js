@@ -13,6 +13,10 @@ class FranchiseService {
   async updateFranchiseName(franchiseId, newName) {
     return await this.franchise.updateName(franchiseId, newName);
   }
+
+  async getAllFranchises() {
+    return await this.franchise.getAllFranchises();
+  }
 }
 
 module.exports = new FranchiseService();
